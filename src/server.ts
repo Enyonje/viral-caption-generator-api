@@ -6,6 +6,8 @@ import { logger } from "./config/logger";
 
 const PORT = process.env.PORT || 4000;
 
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  logger.info(`🚀 Caption Generator API running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
