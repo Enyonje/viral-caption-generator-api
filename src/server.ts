@@ -10,3 +10,7 @@ app.get("/health", (_, res) => res.json({ status: "ok" }));
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+app.get("/", (req, res) => {
+  res.send("Caption Generator API is live 🚀");
+});
