@@ -1,22 +1,44 @@
 import express, { Request, Response } from "express";
-import cors from "cors";
+import dotenv from "dotenv";
 import helmet from "helmet";
+import cors from "cors";
 import morgan from "morgan";
+import pino from "pino";
 
-import captionsRouter from "./routes/captions.routes";
-import billingRouter from "./routes/billing.routes";
+// Load environment variables
+dotenv.config();
 
+// Initialize logger
+const logger = pino({
+  transport: {
+    target: "pino-pretty",
+    options: { colorize: true }
+  }
+});
+
+// Create Express app
 const app = express();
 
-app.use(cors());
+// Middleware
 app.use(helmet());
-app.use(morgan("dev"));
+app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
-app.use("/v1/captions", captionsRouter);
-app.use("/v1/billing", billingRouter);
+// Health check route
+app.get("/health", (_req: Request, res: Response) => {
+  res.json({ status: "ok", uptime: process.uptime() });
+});
 
-app.get("/health", (_req: Request, res: Response) => res.json({ status: "ok" }));
-app.get("/v1/health", (_req: Request, res: Response) => res.json({ status: "ok" }));
+// Example root route
+app.get("/", (_req: Request, res: Response) => {
+  res.json({ message: "Viral Caption Generator API is running 🚀" });
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  logger.info(`Server running on port ${PORT}`);
+});
 
 export default app;
