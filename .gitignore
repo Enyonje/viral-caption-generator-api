@@ -1,0 +1,40 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build and coverage outputs
+dist/
+build/
+coverage/
+
+# Environment variables (never commit secrets)
+.env
+.env.*
+!.env.example   # keep a template for contributors
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+
+# Docker overrides
+docker-compose.override.yml
+
+# Jest cache
+.jest/
+
+# Misc
+*.pid
+*.seed
+*.tgz
